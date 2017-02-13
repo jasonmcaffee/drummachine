@@ -1,46 +1,53 @@
-class EventBus {
-	constructor(){
-		this.events = eventPath.call({}, {});
-	}
-}
+/**
+ * Returns an object where each property accessed is guaranteed to exist.
+ * when the property is executed all event handlers registered via 'on' will be triggered.
+ * e.g.
+ * let eventBus = eventify();
+ * //register the event
+ * eventBus.some.event.on((data)=>console.log(`event fired with data: ${data}`);
+ *
+ * //trigger event
+ * eventBus.some.event('hello');
+ *
+ * // prints: 'event fired with data: hello'
+ * @param val
+ * @returns {Proxy}
+ */
+const eventify = (val={})=>{
 
-const eventPath = (val, parentPath)=>{
-	console.log(`val is: ${JSON.stringify(val, null, 2)}`);
-	//register callback for event or trigger event
-	let wrappedVal = ({data, on, cbContext})=>{
-		if(on){ //register
-			val.callbacks = val.callbacks || new Set();
-			val.callbacks.add(on);
-		}else if(val.callbacks){ //trigger event
-			for(let cb of val.callbacks.values()){
-				if(cbContext){//don't mess with context unless it is passed
-					cb.call(cbContext, {data});
-				}else{
-					cb({data});
-				}
-			}
+	let trigger = (data)=>{
+		if(!val.callbacks){return;}
+		for(let cb of val.callbacks.values()){
+			cb(data);
 		}
-		return val;
 	};
-	wrappedVal.__rawValue = val;
-	wrappedVal.__parentPath = parentPath;
+	trigger.__rawValue = val;//store so that proxy handler has access
+
+	//allow registering of events
+	trigger.on = (cb)=>{
+		val.callbacks = val.callbacks || new Set();
+		val.callbacks.add(cb);
+	};
 
 	//allow deregistering of events
-	wrappedVal.off = (cbToRemove)=>{
+	trigger.off = (cbToRemove)=>{
 		if(!val.callbacks){return;}
 		val.callbacks.delete(cbToRemove);
 	};
-	return new Proxy(wrappedVal, handler);
+
+	return new Proxy(trigger, handler);
 };
 
 const handler = {
 	get(target, name){
-		let parentPath = target.__parentPath;
-		let currentPath = parentPath ? `${parentPath}.${name}` : name;
-		console.log(`get called for path: ${currentPath}`);
-		target.__rawValue[name] = target.__rawValue[name] || {};
-		return eventPath(target.__rawValue[name], currentPath);
+		//when key functions are access on the trigger function, return their normal value.
+		if(['on', 'off'].includes(name)){
+			return target[name];
+		}else{
+			target.__rawValue[name] = target.__rawValue[name] || {};//object which contains callbacks.
+			return eventify(target.__rawValue[name]);
+		}
 	}
 };
 
-module.exports = new EventBus();
+module.exports = eventify();
