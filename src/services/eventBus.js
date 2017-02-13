@@ -3,12 +3,12 @@ class EventBus {
 	constructor(){
 		console.log(`eventBus constructor called`);
 		this.eventCallbackRegistry = {};
-		this.events = eventPath.call(null, {});
+		this.events = eventPath.call({}, {});
 	}
 }
 
 const eventPath = (val, parentPath)=>{
-	//console.log(`val is: ${JSON.stringify(val, null, 2)}`);
+	console.log(`val is: ${JSON.stringify(val, null, 2)}`);
 	//register callback for event or trigger event
 	let wrappedVal = ({data, on, cbContext})=>{
 		//console.log(`wrappVal this: ${JSON.stringify(this)}`);
@@ -35,12 +35,12 @@ const eventPath = (val, parentPath)=>{
 };
 
 //let callbackId = generateCallbackId(callback);
-//const generateCallbackId = (cb)=>{
-//	let S4 = function() {
-//		return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-//	};
-//	return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-//};
+const generateCallbackId = (cb)=>{
+	let S4 = function() {
+		return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+	};
+	return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+};
 
 
 const handler = {
@@ -48,7 +48,8 @@ const handler = {
 		let parentPath = target.__parentPath;
 		let currentPath = parentPath ? `${parentPath}.${name}` : name;
 		console.log(`get called for path: ${currentPath}`);
-		return eventPath(target.__rawValue || {}, currentPath);
+		target.__rawValue[name] = target.__rawValue[name] || {};
+		return eventPath(target.__rawValue[name], currentPath);
 	}
 };
 //
