@@ -29,6 +29,9 @@ describe('event bus', ()=>{
 
 		expect(callCount).toEqual(3);
 
+		events.drumMachine.cymbalHit({x:22});
+		expect(callCount).toEqual(3);
+
 	});
 
 	it('should support deregistering events', ()=>{

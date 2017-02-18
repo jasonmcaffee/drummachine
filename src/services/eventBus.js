@@ -50,4 +50,5 @@ const handler = {
 	}
 };
 
-module.exports = eventify();
+let eventBus = eventify();
+module.exports = eventBus;
