@@ -1,6 +1,6 @@
 import {core} from '../core/core';
 import React from 'react';
-import {DrumPadCell} from '../components/drumpad/DrumPadCell';
+import {DrumMachineCell} from '../components/drummachine/DrumMachineCell';
 
 export class DrumMachine extends core.View {
 	render(){
@@ -19,7 +19,7 @@ export class DrumMachine extends core.View {
 
 	buildDrumcellContainer({sounds}){
 		console.log(`buildDrumcellContainer called.`)
-		let drumCells = sounds.map(sound=><DrumPadCell sound={sound}/>);
+		let drumCells = sounds.map(sound=><DrumMachineCell sound={sound}/>);
 		return(
 			<div className="drumcells-container">{drumCells}</div>
 		)
