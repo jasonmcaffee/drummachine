@@ -63,4 +63,34 @@ describe('event bus', ()=>{
 
 		expect(callCount).toEqual(3);
 	});
+
+	fit('should support deregistering events via returned off', ()=>{
+		let callCount = 0;
+		//create references to event handlers so they can be deregistered
+		let eventHandler1 = ({x})=>{
+			++callCount;
+			expect(x).toEqual(1);
+		};
+		let eventHandler2 = ({x})=>{
+			++callCount;
+			expect(x).toEqual(1);
+		};
+
+		//register event handlers
+		let off1 = events.drumMachine.snareHit.on(eventHandler1);
+		events.drumMachine.snareHit.on(eventHandler2);
+
+		//trigger event
+		events.drumMachine.snareHit({x:1});
+
+		expect(callCount).toEqual(2);
+
+		//unregister 1 event handler and ensure the other is still called.
+		//events.drumMachine.snareHit.off(eventHandler1);
+		off1();
+		//trigger event
+		events.drumMachine.snareHit({x:1});
+
+		expect(callCount).toEqual(3);
+	});
 });

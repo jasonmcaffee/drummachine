@@ -11,9 +11,11 @@ export class DrumMachine extends core.View {
 		let kit = this.props.kit;
 		let drumCellContainer =this.buildDrumcellContainer({sounds:kit.sounds});
 		return (
-			<div>
+			<div className="drummachine-page">
 				<h1>Hello Drum Machine as</h1>
-				{drumCellContainer}
+				<div className="drummachine">
+					{drumCellContainer}
+				</div>
 			</div>
 		);
 	}
@@ -22,7 +24,7 @@ export class DrumMachine extends core.View {
 		console.log(`buildDrumcellContainer called.`)
 		let drumCells = sounds.map(sound=><DrumCell sound={sound}/>);
 		return(
-			<div className="drumcell-container">{drumCells}</div>
+			<div className="drumcells-container">{drumCells}</div>
 		)
 	}
 }
