@@ -1,23 +1,23 @@
-.drummachine-page{
-  background-color:blue;
+.drumpad-page{
+  background-color:violet;
   user-select: none;//don't select text when cell is touche
 
-  .drummachine{ @extend %drummachine }
+  .drumpad{ @extend %drumpad }
 }
 
-%drummachine{
-  .drumcells-container{ @extend %drumcells-container }
+%drumpad{
+  .drumpadcells-container{ @extend %drumpadcells-container }
 }
 
-%drumcells-container{
+%drumpadcells-container{
   background-color: green;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  .drumcell{ @extend %drumcell }
+  .drumpadcell{ @extend %drumpadcell }
 }
 
-%drumcell{
+%drumpadcell{
   background-color: silver;
   padding: 2%;
   margin: 1%;

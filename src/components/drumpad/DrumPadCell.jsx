@@ -1,9 +1,9 @@
-import {core} from '../core/core';
+import {core} from '../../core/core';
 import React from 'react';
 
 let eventBus = core.eventBus;
 
-export class DrumCell extends core.View {
+export class DrumPadCell extends core.View {
 	constructor(props){
 		super(props);
 		this.state = {
@@ -29,7 +29,7 @@ export class DrumCell extends core.View {
   	console.log(`drumcell render called.`);
 		let {sound} = this.props;
 		let {cellActive} = this.state;
-		let className = cellActive ? "drumcell active" : "drumcell";
+		let className = cellActive ? "drumpadcell active" : "drumpadcell";
 		let playSound = ()=> eventBus.kitPlayer.playSound({sound:this.props.sound});
     return (
 			<div className={className} onTouchStart={playSound} onClick={playSound}>
