@@ -13,7 +13,7 @@ let cachedDecodedAudioData = {};//memoization to limit network requests
  */
 export let kitPlayer = {
 	init(currentKit){
-
+		this._currentKit = currentKit;
 		//qwerty keyboard listener
 		eventBus.qwerty.keydown.on(({keyCode})=>{
 			console.log(`kitPlay qwerty.keydown keyCode:${keyCode}`);
@@ -28,6 +28,9 @@ export let kitPlayer = {
 			console.log(`playing sound with path: ${sound.path}`);
 			await playFile({filePath:sound.path});
 		});
+	},
+	get currentKit(){
+		return this._currentKit;
 	}
 };
 
