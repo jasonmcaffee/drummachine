@@ -29,9 +29,10 @@ export class DrumCell extends core.View {
   	console.log(`drumcell render called.`);
 		let {sound} = this.props;
 		let {cellActive} = this.state;
-
+		let className = cellActive ? "drumcell active" : "drumcell";
+		let playSound = ()=> eventBus.kitPlayer.playSound({sound:this.props.sound});
     return (
-			<div className={cellActive ? "drumcell active" : "drumcell"} onTouchStart={eventBus.kitPlayer.playSound({sound:this.props.sound}) }>
+			<div className={className} onTouchStart={playSound} onClick={playSound}>
       	<label>{sound.name}</label>
 			</div>
     );
