@@ -9,7 +9,7 @@ export class DrumMachine extends core.View {
 		let drumCellContainer =this.buildDrumcellContainer({sounds:kit.sounds});
 		return (
 			<div className="drummachine-page">
-				<h1>Hello Drum Machine as</h1>
+				<h1>Drum Machine</h1>
 				<div className="drummachine">
 					{drumCellContainer}
 				</div>
