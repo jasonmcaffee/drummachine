@@ -15,7 +15,7 @@ var qwertyKeyCodeOrder = [
 let kits = [
 	{
 		name:"808v1",
-		kitPath: "/808v1",
+		kitPath: "/electronic/808v1",
 
 		sounds: [
 			//toms
@@ -62,9 +62,11 @@ let kits = [
 ];
 
 let setKitPaths = ()=>{
-	for(let kit in kits){
-		for(let sound in kit.sounds){
+	console.log(`setKitPaths called`)
+	for(let kit of kits){
+		for(let sound of kit.sounds){
 			sound.path = kitBasePath + kit.kitPath + sound.path;
+			//console.log(`new sound path is :${sound.path}`);
 		}
 	}
 };
