@@ -4,7 +4,7 @@ let machines = [
 		name:"first",
 		kitPath: "/electronic/808v1",
 		cellsPerRow: 8,
-		beatsPerMinute: 120,
+		beatsPerMinute: 60,
 		rows: [ //cells are for cell state, effects, etc
 			{ kitName: "808v1", soundName:"bass drum 1", cells:[] },
 			{ kitName: "808v1", soundName:"snare 1", cells:[] }

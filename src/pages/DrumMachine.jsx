@@ -62,7 +62,12 @@ export class DrumMachine extends core.View {
 		let sound = kits.find(kit=>kit.name===kitName).sounds.find(sound=>sound.name===soundName);
 		let drumCells = cells.map(cell=><DrumMachineCell sound={sound} cell={cell} />);
 		return(
-			<div className="drumcell-row">{drumCells}</div>
+			<div className="drumcell-row">
+				<div className="row-name">
+					{soundName}
+				</div>
+				{drumCells}
+			</div>
 		);
 	}
 }

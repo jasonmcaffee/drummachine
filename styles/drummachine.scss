@@ -17,7 +17,17 @@
 %drummachine-cell-row{
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+
+  .row-name{
+    padding: 2%;
+    //margin: 1%;
+    width: 15%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .drummachinecell{ @extend %drummachinecell }
 }
 
@@ -26,6 +36,16 @@
   padding: 2%;
   margin: 1%;
   width: 10%;
+  max-width: 10px;
+  max-height: 10px;
+  vertical-align: middle;
+  //justify-content: center;
+  //flex-direction: column;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
   &.active{
     background-color: yellow;
   }

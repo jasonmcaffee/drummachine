@@ -29,7 +29,6 @@ export class DrumMachineCell extends core.View {
 		let activateDeactivate = ()=> eventBus.drumMachineCell.activateToggle({activated:!this.state.activated, cell});
   	return (
       <div className={className} onClick={activateDeactivate}>
-				<label>{sound.name}</label>
       </div>
     );
   }

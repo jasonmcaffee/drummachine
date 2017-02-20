@@ -18,10 +18,10 @@ export let kitPlayer = {
 
 		//qwerty keyboard listener
 		eventBus.qwerty.keydown.on(({keyCode})=>{
-			console.log(`kitPlay qwerty.keydown keyCode:${keyCode}`);
+			//console.log(`kitPlay qwerty.keydown keyCode:${keyCode}`);
 			//find the keycodes which match in the current kits sounds array
 			let soundsWhichShouldBePlayed = currentKit.sounds.filter(sound=>sound.qwertyTriggers.includes(keyCode));
-			console.log(`found ${soundsWhichShouldBePlayed.length} sounds to play`);
+			//console.log(`found ${soundsWhichShouldBePlayed.length} sounds to play`);
 			soundsWhichShouldBePlayed.forEach(sound=>eventBus.kitPlayer.playSound({sound}));
 		});
 
@@ -29,7 +29,7 @@ export let kitPlayer = {
 		eventBus.kitPlayer.playSound.on(async ({sound, kitName, soundName})=>{
 			if(!sound && (!kitName || !soundName)){return console.error(`incorrect args passed to eventBus.kitPlayer.playSound`);}
 			sound = sound ? sound : kits.find(kit=>kit.name===kitName).sounds.find(sound=>sound.name===soundName);
-			console.log(`playing sound with path: ${sound.path}`);
+			//console.log(`playing sound with path: ${sound.path}`);
 			await playFile({filePath:sound.path});
 		});
 	},

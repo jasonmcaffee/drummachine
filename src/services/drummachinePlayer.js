@@ -15,14 +15,14 @@ class DrumMachinePlayer{
 		let intervalMs = 60000 / beatsPerMinute / cellsPerRow;
 		this.columnCount = 0;
 		this._intervalId = setInterval(()=>{
-			let columnIndex = this.columnCount % (cellsPerRow - 1);
+			let columnIndex = this.columnCount % (cellsPerRow );
 			this.playColumn(columnIndex);
 			++this.columnCount;
 		}, intervalMs);
 	}
 
 	playColumn(columnIndex){
-		console.log(`playing column: ${columnIndex}`);
+		//console.log(`playing column: ${columnIndex}`);
 		//iterate over all rows
 		let {machine:{rows}} = this;
 		rows.forEach(row=>{
