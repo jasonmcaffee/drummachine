@@ -17,13 +17,17 @@ let logRequestsPlugin = {
 
     // listen to all responses
     server.on('response', (request)=> {
+			let ignoreUrls = ['.css', '.js', '.wav', '.mp3'];
+			for(let ignore of ignoreUrls){
+				if(request.url.href.indexOf(ignore) >=0){return;}
+			}
       // calculate how long it took from request to response.
       let endTime = Date.now();
       let duration = endTime - request.plugins.startTime;
-      let {authorization, ...headersWithTokenOmmitted} = request.headers; //eslint-disable-line
+      //let {authorization, ...headersWithTokenOmmitted} = request.headers; //eslint-disable-line
       let requestData = {
         requestId: request.id,
-        headers: headersWithTokenOmmitted,
+        headers: request.headers,
         method: request.method.toUpperCase(),
         url: request.url.href,
         statusCode: request.response.statusCode,
@@ -34,8 +38,13 @@ let logRequestsPlugin = {
 
       // grok_pattern: %{WORD:request_verb} %{URIPATHPARAM:request_path} %{INT:response_status} (%{INT:response_bytes}|-) - %{BASE10NUM:response_time;float} ms -
       // %{IPV4MAPPEDIPV6:remote_addr}
-      let graylogExtractorFormattedRequestData = `${requestData.method} ${requestData.url} ${requestData.statusCode} ${requestData.responseBytes} - ${requestData.responseTimeMilli} ms - ::ffff:${requestData.remoteAddress} - ${JSON.stringify(requestData.headers)}`; //eslint-disable-line
-      logger.log(graylogExtractorFormattedRequestData);
+      //let graylogExtractorFormattedRequestData = `${requestData.method} ${requestData.url} ${requestData.statusCode} ${requestData.responseBytes} - ${requestData.responseTimeMilli} ms - ::ffff:${requestData.remoteAddress} - ${JSON.stringify(requestData.headers)}`; //eslint-disable-line
+			let minimalRequestData ={
+				remoteAddress : request.headers["x-forwarded-for"],
+				userAgent: request.headers["user-agent"]
+			};
+
+			logger.log(`request: ${JSON.stringify(minimalRequestData, null, 2)}`);
     });
 
     next();
