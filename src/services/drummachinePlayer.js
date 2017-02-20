@@ -4,13 +4,20 @@ let eventBus = core.eventBus;
 class DrumMachinePlayer{
 	constructor(machine){
 		this.machine = machine;
+		eventBus.drumMachineControls.beatsPerMinuteChanged.on(({beatsPerMinute})=>{
+			this.machine.beatsPerMinute = beatsPerMinute;
+			this.stop();
+			this.play();
+		});
 	}
 
 	set machine(machine){ this._machine = machine; }
 	get machine(){return this._machine; }
+	get isPlaying(){return this._isPlaying; }
 
 	play(){
 		this.stop();
+		this._isPlaying = true;
 		let {cellsPerRow, beatsPerMinute} = this.machine;
 		let intervalMs = 60000 / beatsPerMinute / cellsPerRow;
 		this.columnCount = 0;
@@ -35,6 +42,7 @@ class DrumMachinePlayer{
 
 	}
 	stop(){
+		this._isPlaying = false;
 		clearInterval(this._intervalId);
 	}
 

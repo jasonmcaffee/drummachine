@@ -2,50 +2,45 @@ import {core} from '../core/core';
 import React from 'react';
 import {DrumMachineCell} from '../components/drummachine/DrumMachineCell';
 import {drumMachinePlayer} from '../services/drummachinePlayer';
+import {DrumMachineControls} from '../components/drummachine/DrumMachineControls';
 
 let eventBus = core.eventBus;
+
 export class DrumMachine extends core.View {
 	constructor(props){
 		super(props);
 		this.state = {
-			isPlaying: false
+			isPlaying: drumMachinePlayer.isPlaying
 		};
-		let {machine}=this.props;
-		eventBus.drumMachineCell.activateToggle.on(({activated, cell})=>{
-			console.log(`activating cell`, cell);
-			cell.activated = activated;
-		});
+	}
 
+	componentDidMount(){
+		this.offs =[
+			eventBus.drumMachineControls.play.on(()=>drumMachinePlayer.play()),
+			eventBus.drumMachineControls.stop.on(()=>drumMachinePlayer.stop()),
+			eventBus.drumMachineCell.activateToggle.on(({activated, cell})=>{
+				console.log(`activating cell`, cell);
+				cell.activated = activated;
+			})
+		]
+	}
+
+	componentWillUnmount(){
+		this.offs.forEach(off=>off());
 	}
 	render(){
 		console.log(`rendering DrumMachine page`);
 		let {machine, kits} = this.props;
 		let drumCellContainer =this.buildDrumcellContainer({kits, machine});
-		let buttonText = this.state.isPlaying ? 'stop' : 'play';
-		let playStopButton = <button onClick={()=>this.playOrStop()}>{buttonText}</button>;
 		return (
 			<div className="drummachine-page">
 				<h1>Drum Machine</h1>
-				{playStopButton}
+				<DrumMachineControls isPlaying={drumMachinePlayer.isPlaying} beatsPerMinute={drumMachinePlayer.machine.beatsPerMinute}/>
 				<div className="drummachine">
 					{drumCellContainer}
 				</div>
 			</div>
 		);
-	}
-
-	playOrStop(){
-		this.state.isPlaying ? this.stop() : this.play();
-	}
-	play(){
-		this.stop();
-		drumMachinePlayer.play();
-		this.setState({isPlaying:true});
-	}
-
-	stop(){
-		drumMachinePlayer.stop();
-		this.setState({isPlaying:false});
 	}
 
 	buildDrumcellContainer({kits, machine}){
