@@ -1,16 +1,88 @@
 .drummachine-page{
-  background-color:blue;
+  font-family:Arial;
   user-select: none;//don't select text when cell is touche
-
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+  background: linear-gradient(to bottom,  #747777 0%,#5e5e5e 88%,#494949 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  >h1{
+    color:white;
+  }
   .drummachine{ @extend %drummachine }
+  .drummachine-controls { @extend %drummachine-controls }
 }
 
 %drummachine{
+  padding:1%;
   .drumcell-row-container{ @extend %drumcell-row-container }
+
 }
 
+%drummachine-controls{
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  >div{
+    padding:10px;
+    width:150px;
+
+    >button{
+        box-shadow:inset 0px 1px 0px 0px #ffffff;
+        background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+        background-color:#ffffff;
+        border-radius:6px;
+        border:1px solid #dcdcdc;
+        display:inline-block;
+        cursor:pointer;
+        color:#666666;
+
+        font-size:15px;
+        font-weight:bold;
+        padding:6px 24px;
+        text-decoration:none;
+        text-shadow:0px 1px 0px #ffffff;
+
+      &:hover {
+        background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+        background-color:#f6f6f6;
+      }
+      &:active {
+        position:relative;
+        top:1px;
+      }
+    }
+    >input{
+      margin-left:5px;
+      display: inline-block;
+      box-sizing: content-box;
+      padding: 5px;
+      border: 1px solid #b7b7b7;
+      border-radius: 3px;
+      font: normal 16px/normal "Times New Roman", Times, serif;
+      color: rgba(0,142,198,1);
+      text-overflow: clip;
+      background: rgba(252,252,252,1);
+      box-shadow: 2px 2px 2px 0 rgba(0,0,0,0.2) inset;
+      text-shadow: 1px 1px 0 rgba(255,255,255,0.66) ;
+      transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+
+    }
+  }
+}
 %drumcell-row-container{
-  background-color: green;
+  border: 1px solid black;
+  border-radius: 3px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f7f7f7+0,e8e8e8+100 */
+  background: #f7f7f7; /* Old browsers */
+  background: -moz-linear-gradient(top,  #f7f7f7 0%, #e8e8e8 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #f7f7f7 0%,#e8e8e8 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #f7f7f7 0%,#e8e8e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#e8e8e8',GradientType=0 ); /* IE6-9 */
+
   .drumcell-row{@extend %drummachine-cell-row}
 }
 
@@ -23,6 +95,7 @@
     padding: 2%;
     //margin: 1%;
     width: 15%;
+    max-width:130px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -33,24 +106,39 @@
 
 %drummachinecell{
   background-color: silver;
-  padding: 2%;
+  //padding: 2%;
   margin: 1%;
   width: 10%;
-  max-width: 10px;
-  max-height: 10px;
   vertical-align: middle;
-  //justify-content: center;
-  //flex-direction: column;
 
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  border-radius: 3px;
+  box-shadow: -2px 0px 4px 0px rgba(0,0,0,0.75);
+  //z-index: 100;
+  .drummachinecell-inner{
+    background-color: #a3be8c;
+    vertical-align: bottom;
+    //padding:0.5%;
+    width:10px;
+    height:10px;
+    margin-left:5px;
+    margin-top:5px;
+    border-radius:2px;
+  }
 
+  //when cell is pressed to play
+  &.activated{
+    background-color: grey;
+    box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.75);
+  }
+  //when cell is played
   &.active{
-    background-color: yellow;
+    .drummachinecell-inner{
+      background-color: #93F94F;
+    }
   }
 
   > label{
+    max-width:10px;
   }
 }
 

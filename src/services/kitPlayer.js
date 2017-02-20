@@ -32,12 +32,25 @@ export let kitPlayer = {
 			//console.log(`playing sound with path: ${sound.path}`);
 			await playFile({filePath:sound.path});
 		});
+		fetchFilesInKit({kit:currentKit});//preload
 	},
 	get currentKit(){
 		return this._currentKit;
 	}
 };
 
+async function fetchFilesInKit({kit}){
+	for(let sound of kit.sounds){
+		let {path} = sound;
+		//console.log(`preloading: ${path}`);
+		if(!cachedDecodedAudioData[path]){
+			let response = await fetch(path);
+			let arrayBuffer = await response.arrayBuffer();
+			let decodedAudioData = await audioContext.decodeAudioData(arrayBuffer);
+			cachedDecodedAudioData[path] = decodedAudioData;
+		}
+	}
+}
 async function playFile({filePath}){
 	if(!cachedDecodedAudioData[filePath]){
 		let response = await fetch(filePath);

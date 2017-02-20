@@ -25,7 +25,6 @@ const eventify = (val={})=>{
 
 	//allow registering of events
 	trigger.on = (cb)=>{
-		console.log('trigger on');
 		val.callbacks = val.callbacks || new Set();
 		val.callbacks.add(cb);
 		return trigger.off.bind(null, cb);

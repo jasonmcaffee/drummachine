@@ -16,7 +16,7 @@ export class DrumMachine extends core.View {
 
 	componentDidMount(){
 		this.offs =[
-			eventBus.drumMachineCell.activateToggle.on(({activated, cell})=>{
+			eventBus.drumMachineCell.activatedToggle.on(({activated, cell})=>{
 				console.log(`activating cell`, cell);
 				cell.activated = activated;
 			})

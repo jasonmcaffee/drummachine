@@ -10,8 +10,7 @@ class DrumMachinePlayer{
 			eventBus.drumMachineControls.beatsPerMinuteChanged.on(({beatsPerMinute})=>{
 				if(beatsPerMinute < 1){return;}
 				this.machine.beatsPerMinute = beatsPerMinute;
-				this.stop();
-				this.play();
+				eventBus.drumMachineControls.stop();
 			})
 		];
 	}
@@ -34,20 +33,30 @@ class DrumMachinePlayer{
 	}
 
 	playColumn(columnIndex){
+		this.deactivateCellsBeforeNext = this.deactivateCellsBeforeNext || [];
+		this.deactivateCellsBeforeNext.forEach(cell=>eventBus.drumMachineCell.active({active:false, cell}));
+		this.deactivateCellsBeforeNext=[];
 		//console.log(`playing column: ${columnIndex}`);
 		//iterate over all rows
 		let {machine:{rows}} = this;
 		rows.forEach(row=>{
 			let {soundName, kitName} = row;
 			let cell = row.cells[columnIndex];
+			//active always so the column lights up
+			eventBus.drumMachineCell.active({active:true, cell});
+			this.deactivateCellsBeforeNext.push(cell);
 			if(!cell.activated){return;}
 			eventBus.kitPlayer.playSound({soundName, kitName});
+
 		});
 		//find the sound for active cells in the column...
 
 	}
 	stop(){
 		this._isPlaying = false;
+		this.deactivateCellsBeforeNext = this.deactivateCellsBeforeNext || [];
+		this.deactivateCellsBeforeNext.forEach(cell=>eventBus.drumMachineCell.active({active:false, cell}));
+		this.deactivateCellsBeforeNext=[];
 		clearInterval(this._intervalId);
 	}
 

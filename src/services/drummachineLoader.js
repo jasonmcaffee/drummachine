@@ -27,7 +27,8 @@ let createCells = (machine)=>{
 		[...Array(cellsPerRow).keys()].map(i=>{
 			if(row.cells[i]){return;}
 			row.cells.splice(i, 0, {
-				activated: false
+				activated: false,
+				active: false
 			});
 		});
 	});
