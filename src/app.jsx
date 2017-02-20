@@ -16,19 +16,20 @@ export default class App extends React.Component {
 		this.state = {
 			activeAddress: location.hash
 		};
-		this.attachListeners();
-
 	}
-
-	attachListeners(){
-		attachQwertyListener();
-		attachPageListener();
-
-		eventBus.page.addressChanged.on(({address})=> this.setState({activeAddress: address}));
+	componentDidMount(){
+		this.offs=[
+			attachQwertyListener(),
+			attachPageListener(),
+			eventBus.page.addressChanged.on(({address})=> this.setState({activeAddress: address}))
+		];
+	}
+	componentWillUnmount(){
+		this.offs.forEach(off=>off());
 	}
 
   render() {
-		console.log(`render called for app: `, this.state.activePage);
+		console.log(`render called for app: `, this.state.activeAddress);
 		let activePage = this.getActivePage(this.state.activeAddress);
     return (
       <div>

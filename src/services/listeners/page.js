@@ -1,7 +1,10 @@
 import eventBus from '../eventBus';
 
 export let attachPageListener = ()=>{
-	console.log(`attaching qwerty listener...`);
-	window.addEventListener('hashchange', ()=>eventBus.page.addressChanged({address:location.hash}), true);
-	//$(document).on('keyup', this.boundHandleQwertyKeyUp);
+	console.log(`attaching page listener...`);
+	let handle = ()=>eventBus.page.addressChanged({address:location.hash});
+	window.addEventListener('hashchange', handle, true);
+	return ()=>{
+		window.removeEventListener('hashchange', handle, true);
+	}
 };
