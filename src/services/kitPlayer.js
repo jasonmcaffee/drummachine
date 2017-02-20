@@ -12,8 +12,9 @@ let cachedDecodedAudioData = {};//memoization to limit network requests
  * @type {{init: (function(*))}}
  */
 export let kitPlayer = {
-	init(currentKit, kits){
+	async init(currentKit, kits){
 		this._currentKit = currentKit;
+		await fetchFilesInKit({kit:currentKit});//preload
 		eventBus.kitPlayer.kitLoaded({kit:currentKit});
 
 		//qwerty keyboard listener
@@ -32,7 +33,7 @@ export let kitPlayer = {
 			//console.log(`playing sound with path: ${sound.path}`);
 			await playFile({filePath:sound.path});
 		});
-		fetchFilesInKit({kit:currentKit});//preload
+
 	},
 	get currentKit(){
 		return this._currentKit;
