@@ -36,7 +36,7 @@ async function startServer () {
 			connections: {
 				routes: {
 					files: {
-						relativeTo: Path.join(__dirname, '../../public')
+						relativeTo: Path.join(__dirname, '../public')
 					}
 				}
 			}
