@@ -4,11 +4,16 @@ let eventBus = core.eventBus;
 class DrumMachinePlayer{
 	constructor(machine){
 		this.machine = machine;
-		eventBus.drumMachineControls.beatsPerMinuteChanged.on(({beatsPerMinute})=>{
-			this.machine.beatsPerMinute = beatsPerMinute;
-			this.stop();
-			this.play();
-		});
+		this.offs=[
+			eventBus.drumMachineControls.play.on(()=>this.play()),
+			eventBus.drumMachineControls.stop.on(()=>this.stop()),
+			eventBus.drumMachineControls.beatsPerMinuteChanged.on(({beatsPerMinute})=>{
+				if(beatsPerMinute < 1){return;}
+				this.machine.beatsPerMinute = beatsPerMinute;
+				this.stop();
+				this.play();
+			})
+		];
 	}
 
 	set machine(machine){ this._machine = machine; }
