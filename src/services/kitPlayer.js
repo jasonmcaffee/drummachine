@@ -12,7 +12,7 @@ let cachedDecodedAudioData = {};//memoization to limit network requests
  * @type {{init: (function(*))}}
  */
 export let kitPlayer = {
-	init(currentKit){
+	init(currentKit, kits){
 		this._currentKit = currentKit;
 		eventBus.kitPlayer.kitLoaded({kit:currentKit});
 
@@ -26,7 +26,9 @@ export let kitPlayer = {
 		});
 
 		//play sound listener
-		eventBus.kitPlayer.playSound.on(async ({sound})=>{
+		eventBus.kitPlayer.playSound.on(async ({sound, kitName, soundName})=>{
+			if(!sound && (!kitName || !soundName)){return console.error(`incorrect args passed to eventBus.kitPlayer.playSound`);}
+			sound = sound ? sound : kits.find(kit=>kit.name===kitName).sounds.find(sound=>sound.name===soundName);
 			console.log(`playing sound with path: ${sound.path}`);
 			await playFile({filePath:sound.path});
 		});
@@ -50,4 +52,4 @@ async function playFile({filePath}){
 	source.start(0);
 }
 
-kitPlayer.init(loadKits()[0]);
+kitPlayer.init(loadKits()[0], loadKits());

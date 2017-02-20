@@ -6,11 +6,15 @@
 }
 
 %drummachine{
-  .drumcells-container{ @extend %drummachinecells-container }
+  .drumcell-row-container{ @extend %drumcell-row-container }
 }
 
-%drummachinecells-container{
+%drumcell-row-container{
   background-color: green;
+  .drumcell-row{@extend %drummachine-cell-row}
+}
+
+%drummachine-cell-row{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -29,5 +33,6 @@
   > label{
   }
 }
+
 
 

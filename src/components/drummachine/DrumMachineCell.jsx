@@ -7,8 +7,10 @@ export class DrumMachineCell extends core.View {
   constructor(props){
     super(props);
 		this.state = {
-			cellActive: false
+			activated: this.props.cell.activated
 		};
+
+		eventBus.drumMachineCell.activateToggle.on(({activated, cell})=>cell === this.props.cell ? this.setState({activated}) : 0);
   }
   componentWillMount() {}
   componentDidMount() {
@@ -21,9 +23,12 @@ export class DrumMachineCell extends core.View {
   }
 
   render() {
-		let {sound} = this.props;
+		let {sound, cell} = this.props;
+		let {activated} = this.state;
+		let className = activated ? "drummachinecell active" : "drummachinecell";
+		let activateDeactivate = ()=> eventBus.drumMachineCell.activateToggle({activated:!this.state.activated, cell});
   	return (
-      <div className="drummachinecell" >
+      <div className={className} onClick={activateDeactivate}>
 				<label>{sound.name}</label>
       </div>
     );
