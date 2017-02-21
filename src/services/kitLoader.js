@@ -3,17 +3,7 @@ let kitBasePath = "/kits";
 var a4midiNoteNumber = 69;
 
 let k = {
-	backtick: 192, _1: 49, _2: 50, _3: 51, _4: 52, _5: 53, _6: 54, _7: 55, _8: //var qwertyKeyCodeOrder = [
-//// `   1   2   3   4   5   6   7   8   9   0   -    =    delete
-//	192, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 189, 187, 8,
-//// q  w   e   r   t   y   u   i   o   p   [    ]    \
-//	81, 87, 69, 82, 84, 89, 85, 73, 79, 80, 219, 221, 220,
-//// a  s   d   f   g   h   j   k   l   ;    '
-//	65, 83, 68, 70, 71, 72, 74, 75, 76, 186, 222,
-//// z  x   c   v   b   n   m   ,    .    /    space
-//	90, 88, 67, 86, 66, 78, 77, 188, 190, 191, 32
-//];
-		56, _9: 57, _0: 48, dash: 189, equal: 187, 'delete': 8,
+	backtick: 192, _1: 49, _2: 50, _3: 51, _4: 52, _5: 53, _6: 54, _7: 55, _8: 56, _9: 57, _0: 48, dash: 189, equal: 187, 'delete': 8,
 	q: 81, w: 87, e: 69, r: 82, t: 84, y: 89, u: 85, i: 73, o: 79, p: 80, leftBracket: 219, rightBracket: 221, backslash: 220,
 	a: 65, s: 83, d: 68, f: 70, g: 71, h: 72, j: 74, k: 75, l: 76, semicolon: 186, singleQuote: 222,
 	z: 90, x: 88, c: 67, v: 86, b: 66, n: 78, m: 77, comma: 188, period: 190, forwardslash: 191,
