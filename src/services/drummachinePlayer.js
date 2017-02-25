@@ -7,10 +7,13 @@ class DrumMachinePlayer{
 		this.offs=[
 			eventBus.drumMachineControls.play.on(()=>this.play()),
 			eventBus.drumMachineControls.stop.on(()=>this.stop()),
+			eventBus.drumMachineControls.pause.on(()=>this.pause()),
 			eventBus.drumMachineControls.beatsPerMinuteChanged.on(({beatsPerMinute})=>{
 				if(beatsPerMinute < 1){return;}
 				this.machine.beatsPerMinute = beatsPerMinute;
-				eventBus.drumMachineControls.stop();
+				let wasPlaying = this._isPlaying;
+				eventBus.drumMachineControls.pause();
+				if(wasPlaying){eventBus.drumMachineControls.play();}
 			})
 		];
 	}
@@ -20,16 +23,19 @@ class DrumMachinePlayer{
 	get isPlaying(){return this._isPlaying; }
 
 	play(){
-		this.stop();
+		//this.stop();
 		this._isPlaying = true;
 		let {cellsPerRow, beatsPerMinute} = this.machine;
 		let intervalMs = 60000 / beatsPerMinute / cellsPerRow;
-		this.columnCount = 0;
 		this._intervalId = setInterval(()=>{
 			let columnIndex = this.columnCount % (cellsPerRow );
 			this.playColumn(columnIndex);
 			++this.columnCount;
 		}, intervalMs);
+	}
+
+	pause(){
+		clearInterval(this._intervalId);
 	}
 
 	playColumn(columnIndex){
@@ -54,6 +60,7 @@ class DrumMachinePlayer{
 	}
 	stop(){
 		this._isPlaying = false;
+		this.columnCount = 0;
 		this.deactivateCellsBeforeNext = this.deactivateCellsBeforeNext || [];
 		this.deactivateCellsBeforeNext.forEach(cell=>eventBus.drumMachineCell.active({active:false, cell}));
 		this.deactivateCellsBeforeNext=[];
