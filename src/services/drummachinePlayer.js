@@ -4,6 +4,7 @@ let eventBus = core.eventBus;
 class DrumMachinePlayer{
 	constructor(machine){
 		this.machine = machine;
+		this.columnCount = 0;
 		this.offs=[
 			eventBus.drumMachineControls.play.on(()=>this.play()),
 			eventBus.drumMachineControls.stop.on(()=>this.stop()),
@@ -13,6 +14,12 @@ class DrumMachinePlayer{
 				this.machine.beatsPerMinute = beatsPerMinute;
 				let wasPlaying = this._isPlaying;
 				eventBus.drumMachineControls.pause();
+				if(wasPlaying){eventBus.drumMachineControls.play();}
+			}),
+			eventBus.drumMachine.configChange.on(({machineConfig})=>{
+				this.machine = machineConfig;
+				eventBus.drumMachineControls.pause(); //reconfigure based on cellsPerRow
+				let wasPlaying = this._isPlaying;
 				if(wasPlaying){eventBus.drumMachineControls.play();}
 			})
 		];

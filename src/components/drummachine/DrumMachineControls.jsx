@@ -30,8 +30,8 @@ export class DrumMachineControls extends core.View {
   render() {
 		let buttonText = this.state.isPlaying ? '&#9689' : '&#9658';
 		let playStopButton = <button onClick={()=>this.playOrStop()} dangerouslySetInnerHTML={{__html: buttonText}}></button>;
-		let addColumnButton = <button onCLick={eventBus.drumMachineControls.addColumn}>+</button>;
-		let removeColumnButton = <button onCLick={eventBus.drumMachineControls.removeColumn}>-</button>;
+		let addColumnButton = <button onClick={()=>eventBus.drumMachineControls.addColumn()}>+</button>;
+		let removeColumnButton = <button onClick={()=>eventBus.drumMachineControls.removeColumn()}>-</button>;
   	return (
       <div className="drummachine-controls" >
 				<div>{playStopButton}</div>

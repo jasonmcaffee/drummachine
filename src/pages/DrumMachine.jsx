@@ -3,6 +3,7 @@ import React from 'react';
 import {DrumMachineCell} from '../components/drummachine/DrumMachineCell';
 import {drumMachinePlayer} from '../services/drummachinePlayer';
 import {DrumMachineControls} from '../components/drummachine/DrumMachineControls';
+import {drumMachine} from '../models/DrumMachine';
 
 let eventBus = core.eventBus;
 
@@ -19,6 +20,9 @@ export class DrumMachine extends core.View {
 			eventBus.drumMachineCell.activatedToggle.on(({activated, cell})=>{
 				console.log(`activating cell`, cell);
 				cell.activated = activated;
+			}),
+			eventBus.drumMachine.configChange.on(()=>{
+				this.forceUpdate();
 			})
 		]
 	}
@@ -28,7 +32,8 @@ export class DrumMachine extends core.View {
 	}
 	render(){
 		console.log(`rendering DrumMachine page`);
-		let {machine, kits} = this.props;
+		let {kits} = this.props;
+		let machine = drumMachine.machineConfig;
 		let drumCellContainer =this.buildDrumcellContainer({kits, machine});
 		return (
 			<div className="drummachine-page">
@@ -42,7 +47,7 @@ export class DrumMachine extends core.View {
 	}
 
 	buildDrumcellContainer({kits, machine}){
-		console.log(`buildDrumcellContainer called.`);
+		console.log(`buildDrumcellContainer called. cellsPerRow: ${machine.cellsPerRow}`);
 		let {cellsPerRow} = machine;
 		let cellRows = machine.rows.map(machineRow=>this.buildDrumCellRow({machineRow, cellsPerRow, kits}));
 		return(

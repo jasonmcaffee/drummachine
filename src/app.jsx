@@ -5,7 +5,7 @@ import {kitPlayer} from './services/kitPlayer';
 import {attachQwertyListener} from './services/listeners/qwerty';
 import {attachPageListener} from './services/listeners/page';
 import {loadKits} from './services/kitLoader';
-import {loadMachines} from './services/drummachineLoader';
+
 import {core} from './core/core';
 
 let eventBus = core.eventBus;
@@ -47,7 +47,7 @@ export default class App extends React.Component {
 				break;
 			case '#drummachine':
 			default:
-				activePage =  <DrumMachine kits={loadKits()} machine={loadMachines()[0]}></DrumMachine>;
+				activePage =  <DrumMachine kits={loadKits()}></DrumMachine>;
 		}
 		return activePage;
 	}

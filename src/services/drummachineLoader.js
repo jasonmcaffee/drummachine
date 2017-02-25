@@ -1,13 +1,14 @@
 
-let machines = [
+
+let machineConfigs = [
 	{
 		name:"first",
-		//kitPath: "/electronic/808v1",
 		cellsPerRow: 8,
 		beatsPerMinute: 60,
 		rows: [ //cells are for cell state, effects, etc
 			{ kitName: "808v1", soundName:"bass drum 1", cells:[] },
 			{ kitName: "808v1", soundName:"snare 1", cells:[] },
+			//kitPath: "/electronic/808v1",
 			{ kitName: "808v1", soundName:"hihat closed 1", cells:[] },
 			{ kitName: "808v1", soundName:"tom low 1", cells:[] },
 			{ kitName: "808v1", soundName:"tom mid 1", cells:[] },
@@ -20,23 +21,24 @@ let machines = [
 	}
 ];
 
+let createCell = ()=>({activated:false, active:false});
+
 
 let createCells = (machine)=>{
 	let {rows, cellsPerRow} = machine;
 	rows.forEach(row=>{
 		[...Array(cellsPerRow).keys()].map(i=>{
 			if(row.cells[i]){return;}
-			row.cells.splice(i, 0, {
-				activated: false,
-				active: false
-			});
+			row.cells.splice(i, 0, createCell());
 		});
 	});
 };
 
-machines.map(createCells);
+machineConfigs.map(createCells);
 
 export let loadMachines = ()=>{
-	console.log(`loading machines: ${JSON.stringify(machines, null, 2)}`);
-	return machines;
+	console.log(`loading machines: ${JSON.stringify(machineConfigs, null, 2)}`);
+	return machineConfigs;
 };
+
+
