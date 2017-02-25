@@ -41,12 +41,13 @@ export default class App extends React.Component {
 	getActivePage(address){
 		let activePage;
 		switch(address){
-			case '#drummachine':
-				activePage =  <DrumMachine kits={loadKits()} machine={loadMachines()[0]}></DrumMachine>;
-				break;
+
 			case '#drumpad':
-			default:
 				activePage = <DrumPad kit={kitPlayer.currentKit}></DrumPad>;
+				break;
+			case '#drummachine':
+			default:
+				activePage =  <DrumMachine kits={loadKits()} machine={loadMachines()[0]}></DrumMachine>;
 		}
 		return activePage;
 	}

@@ -3,6 +3,6 @@ import eventBus from '../services/eventBus';
 
 export let core = {
 	View: React.Component,
-	audioContext: new AudioContext(),
+	audioContext: window.AudioContext ? new AudioContext() : new webkitAudioContext(),
 	eventBus
 };
