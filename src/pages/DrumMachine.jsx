@@ -38,7 +38,7 @@ export class DrumMachine extends core.View {
 		return (
 			<div className="drummachine-page">
 				<h1>Drum Machine</h1>
-				<DrumMachineControls isPlaying={drumMachinePlayer.isPlaying} beatsPerMinute={machine.beatsPerMinute} notesPerMeasure={machine.notesPerMeasure}/>
+				<DrumMachineControls isPlaying={drumMachinePlayer.isPlaying} beatsPerMinute={machine.beatsPerMinute} notesPerMeasure={machine.notesPerMeasure} cellsPerRow={machine.cellsPerRow}/>
 				<div className="drummachine ">
 					{drumCellContainer}
 				</div>
