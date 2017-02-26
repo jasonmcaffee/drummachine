@@ -237,7 +237,7 @@ const glob = bluebird.default.promisify(require('glob'));
 let Path = require('path');
 let logger = console;function startServerCluster() {
   const cluster = require('cluster');
-  const numCPUs = 1; // require('os').cpus().length;
+  const numCPUs = require('os').cpus().length;
   logger.info(`creating a server cluster for ${numCPUs} cpus`);
   if (cluster.isMaster) {
     // Fork workers.

@@ -18,7 +18,8 @@
     "docker:run": "docker run --log-driver=gelf --log-opt gelf-address=udp://127.0.0.1:12201 --log-opt tag=\"webhooks-local-testing\" -ti --rm --expose=${SERVER_PORT} -p ${SERVER_PORT}:${SERVER_PORT} -e NODE_ENV=${NODE_ENV} -e SERVER_PORT=${SERVER_PORT} -e RABBIT_MQ_ADDRESS=${RABBIT_MQ_ADDRESS} webhooks",
     "docker:runintegration": "docker run --log-driver=gelf --log-opt gelf-address=udp://127.0.0.1:12201 --log-opt tag=\"webhooks-local-testing\" -i --rm --expose=3000 -p 3000:3000 -e NODE_ENV=test-integration -e BYPASS_USER_AUTH=true -e SERVER_PORT=3000  webhooks",
     "clean": "rm -rf build",
-    "build": "npm run clean && npm run build-no-clean"
+    "build": "npm run clean && npm run build-no-clean",
+    "dist": "npm run build && cp -r . ../production/drummachine/server"
   },
   "author": "titan team",
   "license": "ISC",
