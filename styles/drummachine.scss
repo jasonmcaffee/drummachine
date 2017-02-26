@@ -140,6 +140,7 @@
 
   border-radius: 3px;
   box-shadow: -2px 0px 4px 0px rgba(0,0,0,0.75);
+
   //z-index: 100;
   .drummachinecell-inner{
     background-color: #a3be8c;
@@ -160,6 +161,9 @@
   //when cell is played
   &.active{
     .drummachinecell-inner{
+      //keep lines for showing up when modal is overlayed
+      //transform: rotate(0deg);
+      -webkit-backface-visibility: hidden;
       background-color: #93F94F;
     }
   }

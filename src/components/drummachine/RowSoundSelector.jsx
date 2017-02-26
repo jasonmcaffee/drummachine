@@ -1,7 +1,7 @@
 import {core} from '../../core/core';
 import React from 'react';
 import {Modal} from '../common/Modal';
-
+import {KitSoundSelector} from '../common/KitSoundSelector';
 let eventBus = core.eventBus;
 
 export class RowSoundSelector extends core.View {
@@ -36,7 +36,7 @@ export class RowSoundSelector extends core.View {
 					<div className="">
 						<div onClick={()=>this.toggleModal() }>{soundName}</div>
 						<Modal active={modalActive} title={soundName}>
-							<div>Content Modal</div>
+							<KitSoundSelector></KitSoundSelector>
 						</Modal>
 					</div>
 			);
