@@ -18,15 +18,26 @@ class DrumMachine{
 		this.loadConfig(machineConfig);
 
 		this.offs = [
+			//increase cells per row
 			eventBus.drumMachineControls.addColumn.on(()=>{
 				this.machineConfig.cellsPerRow +=1;
 				createCellsIfNeeded(this.machineConfig);
 				eventBus.drumMachine.configChange({machineConfig:this.machineConfig});
 			}),
+
+			//decrease cells per row
 			eventBus.drumMachineControls.removeColumn.on(()=>{
 				this.machineConfig.cellsPerRow -=1;
 				eventBus.drumMachine.configChange({machineConfig:this.machineConfig});
-			})
+			}),
+
+			//bpm
+			eventBus.drumMachineControls.beatsPerMinuteChanged.on(({beatsPerMinute})=>{
+				if(beatsPerMinute < 1){return;}
+				this.machineConfig.beatsPerMinute = beatsPerMinute;
+				eventBus.drumMachine.configChange({machineConfig:this.machineConfig});
+			}),
+
 		];
 	}
 

@@ -1,25 +1,21 @@
 import {loadMachines} from './drummachineLoader';
 import {core} from '../core/core';
 let eventBus = core.eventBus;
+
 class DrumMachinePlayer{
 	constructor(machine){
 		this.machine = machine;
-		this.columnCount = 0;
+		this.columnCount = -1;
 		this.offs=[
 			eventBus.drumMachineControls.play.on(()=>this.play()),
 			eventBus.drumMachineControls.stop.on(()=>this.stop()),
 			eventBus.drumMachineControls.pause.on(()=>this.pause()),
-			eventBus.drumMachineControls.beatsPerMinuteChanged.on(({beatsPerMinute})=>{
-				if(beatsPerMinute < 1){return;}
-				this.machine.beatsPerMinute = beatsPerMinute;
-				let wasPlaying = this._isPlaying;
-				eventBus.drumMachineControls.pause();
-				if(wasPlaying){eventBus.drumMachineControls.play();}
-			}),
+
+			//listen for changes in cells per row, notes per measure
 			eventBus.drumMachine.configChange.on(({machineConfig})=>{
 				this.machine = machineConfig;
-				eventBus.drumMachineControls.pause(); //reconfigure based on cellsPerRow
 				let wasPlaying = this._isPlaying;
+				eventBus.drumMachineControls.pause(); //reconfigure based on cellsPerRow
 				if(wasPlaying){eventBus.drumMachineControls.play();}
 			})
 		];
@@ -32,16 +28,18 @@ class DrumMachinePlayer{
 	play(){
 		//this.stop();
 		this._isPlaying = true;
-		let {cellsPerRow, beatsPerMinute} = this.machine;
-		let intervalMs = 60000 / beatsPerMinute / cellsPerRow;
+		let {cellsPerRow, beatsPerMinute, notesPerMeasure} = this.machine;
+		//play a column on each interval
+		let noteLength = 60000 / beatsPerMinute / notesPerMeasure;
 		this._intervalId = setInterval(()=>{
+			++this.columnCount;
 			let columnIndex = this.columnCount % (cellsPerRow );
 			this.playColumn(columnIndex);
-			++this.columnCount;
-		}, intervalMs);
+		}, noteLength);
 	}
 
 	pause(){
+		this._isPlaying = false;
 		clearInterval(this._intervalId);
 	}
 
@@ -60,14 +58,12 @@ class DrumMachinePlayer{
 			this.deactivateCellsBeforeNext.push(cell);
 			if(!cell.activated){return;}
 			eventBus.kitPlayer.playSound({soundName, kitName});
-
 		});
-		//find the sound for active cells in the column...
 
 	}
 	stop(){
 		this._isPlaying = false;
-		this.columnCount = 0;
+		this.columnCount = -1;
 		this.deactivateCellsBeforeNext = this.deactivateCellsBeforeNext || [];
 		this.deactivateCellsBeforeNext.forEach(cell=>eventBus.drumMachineCell.active({active:false, cell}));
 		this.deactivateCellsBeforeNext=[];

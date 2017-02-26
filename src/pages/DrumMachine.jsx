@@ -18,7 +18,7 @@ export class DrumMachine extends core.View {
 	componentDidMount(){
 		this.offs =[
 			eventBus.drumMachineCell.activatedToggle.on(({activated, cell})=>{
-				console.log(`activating cell`, cell);
+				//console.log(`activating cell`, cell);
 				cell.activated = activated;
 			}),
 			eventBus.drumMachine.configChange.on(()=>{
@@ -39,7 +39,7 @@ export class DrumMachine extends core.View {
 			<div className="drummachine-page">
 				<h1>Drum Machine</h1>
 				<DrumMachineControls isPlaying={drumMachinePlayer.isPlaying} beatsPerMinute={drumMachinePlayer.machine.beatsPerMinute}/>
-				<div className="drummachine">
+				<div className="drummachine ">
 					{drumCellContainer}
 				</div>
 			</div>
@@ -48,23 +48,45 @@ export class DrumMachine extends core.View {
 
 	buildDrumcellContainer({kits, machine}){
 		console.log(`buildDrumcellContainer called. cellsPerRow: ${machine.cellsPerRow}`);
-		let {cellsPerRow} = machine;
-		let cellRows = machine.rows.map(machineRow=>this.buildDrumCellRow({machineRow, cellsPerRow, kits}));
+		let {cellsPerRow, notesPerMeasure, totalNumberOfMeasures} = machine;
+		let cellRows = machine.rows.map(machineRow=>this.buildDrumCellRow({machineRow, cellsPerRow, kits, notesPerMeasure, totalNumberOfMeasures}));
 		return(
 			<div className="drumcell-row-container">{cellRows}</div>
 		)
 	}
 
-	buildDrumCellRow({machineRow, kits}){
+	buildDrumCellRow({machineRow, kits, notesPerMeasure, cellsPerRow, totalNumberOfMeasures}){
 		let {kitName, soundName, cells} = machineRow;
 		let sound = kits.find(kit=>kit.name===kitName).sounds.find(sound=>sound.name===soundName);
-		let drumCells = cells.map(cell=><DrumMachineCell sound={sound} cell={cell} />);
+		// let drumCells = cells.map(cell=><DrumMachineCell sound={sound} cell={cell} />);
+		//group drum cells into measures (array of measures where each measure is an array of cells
+		// [
+		// 	[cell, cell, cell, cell],   //measure 1
+		// 	[cell, cell, cell, cell]    //measure 2
+		// ]
+		let measures = cells.reduce((accumulator, cell, i)=>{
+			let measureIndex = Math.floor(( i/notesPerMeasure) % (cellsPerRow));
+			console.log(`measureIndex: ${measureIndex} i: ${i}  totalNumberOfMeasures:${totalNumberOfMeasures}`);
+			let measure = accumulator[measureIndex] = accumulator[measureIndex] || [];
+			measure.push(cell);
+			return accumulator;
+		}, []);
+		console.log(`measures`, measures);
+
+		let measureWidth = (100 / totalNumberOfMeasures) + '%';
+		let cellWidth = (100 / notesPerMeasure) + '%';
+		let measureElements = measures.map((cellsForMeasure)=>{
+			let drumCellElements = cellsForMeasure.map(cell=><DrumMachineCell sound={sound} cell={cell} cellWidth={cellWidth}/>);
+			return(
+				<div className="measure" style={{"width" : measureWidth}}>{drumCellElements}</div>
+			);
+		});
 		return(
 			<div className="drumcell-row">
 				<div className="row-name">
 					{soundName}
 				</div>
-				{drumCells}
+				{measureElements}
 			</div>
 		);
 	}

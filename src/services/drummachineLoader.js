@@ -4,7 +4,9 @@ let machineConfigs = [
 	{
 		name:"first",
 		cellsPerRow: 8,
+		notesPerMeasure: 4,
 		beatsPerMinute: 60,
+		get totalNumberOfMeasures(){ return this.cellsPerRow / this.notesPerMeasure },
 		rows: [ //cells are for cell state, effects, etc
 			{ kitName: "808v1", soundName:"bass drum 1", cells:[] },
 			{ kitName: "808v1", soundName:"snare 1", cells:[] },

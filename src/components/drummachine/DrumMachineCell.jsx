@@ -29,7 +29,7 @@ export class DrumMachineCell extends core.View {
 		className += this.state.active ? ' active' : '';
 		let activateDeactivate = ()=> eventBus.drumMachineCell.activatedToggle({activated:!this.state.activated, cell});
   	return (
-      <div className={className} onClick={activateDeactivate}>
+      <div className={className} onClick={activateDeactivate} style={{width: this.props.cellWidth}}>
 				<div className="drummachinecell-inner">&nbsp;</div>
       </div>
     );
