@@ -11,6 +11,12 @@ export class DrumMachineCell extends core.View {
 			active: this.props.cell.active
 		};
   }
+	componentWillReceiveProps(nextProps){
+		this.setState({
+			activated: nextProps.cell.activated,
+			active: nextProps.cell.active
+		});
+	}
   componentWillMount() {}
   componentDidMount() {
     this.offs = [
