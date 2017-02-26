@@ -3,6 +3,7 @@ import React from 'react';
 import {DrumMachineCell} from '../components/drummachine/DrumMachineCell';
 import {drumMachinePlayer} from '../services/drummachinePlayer';
 import {DrumMachineControls} from '../components/drummachine/DrumMachineControls';
+import {RowSoundSelector} from '../components/drummachine/RowSoundSelector';
 import {drumMachine} from '../models/DrumMachine';
 
 let eventBus = core.eventBus;
@@ -84,7 +85,7 @@ export class DrumMachine extends core.View {
 		return(
 			<div className="drumcell-row">
 				<div className="row-name">
-					{soundName}
+					<RowSoundSelector soundName={soundName}/>
 				</div>
 				{measureElements}
 			</div>

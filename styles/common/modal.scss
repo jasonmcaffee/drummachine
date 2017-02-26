@@ -1,0 +1,80 @@
+.modal{ @extend %modal; }
+
+%modal{
+  display:none;
+  //background-color:blue;
+  position: absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  z-index: 10;
+  .modal-background { @extend %modal-background; }
+  .modal-content{ @extend %modal-content; }
+
+  &.active{
+    display:block;
+  }
+}
+
+%modal-background{
+  position:absolute;
+  height: 100%;
+  width:100%;
+  top:0;
+  left:0;
+  z-index:11;
+
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2a3a42+0,0c1316+100&0.5+0,0.5+100 */
+  background: -moz-linear-gradient(top,  rgba(42,58,66,0.5) 0%, rgba(12,19,22,0.5) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(42,58,66,0.5) 0%,rgba(12,19,22,0.5) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(42,58,66,0.5) 0%,rgba(12,19,22,0.5) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#802a3a42', endColorstr='#800c1316',GradientType=0 ); /* IE6-9 */
+
+  //filter: blur(15px);
+  backdrop-filter: blur(10px);
+}
+%modal-content{
+  width:90%;
+  height:80%;
+  margin: 5%;
+  overflow: scroll;
+  border-radius: 3px;
+  //filter:blur(0);
+  position:relative;
+  z-index:12;
+
+  >header{ @extend %modal-header; }
+
+  .modal-passed-in-content{ @extend %modal-passed-in-content; }
+
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#383838+0,0e0e0e+100&0.75+0,0.75+100 */
+  background: -moz-linear-gradient(top,  rgba(56,56,56,0.75) 0%, rgba(14,14,14,0.75) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(56,56,56,0.75) 0%,rgba(14,14,14,0.75) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(56,56,56,0.75) 0%,rgba(14,14,14,0.75) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bf383838', endColorstr='#bf0e0e0e',GradientType=0 ); /* IE6-9 */
+}
+
+%modal-header{
+  //background-color:grey;
+  width:100%;
+
+  >label{
+    font: "Anonymous Pro", "Menlo", "Consolas", "Bitstream Vera Sans Mono", "Courier New", monospace;
+    font-size: 50px;
+    color:white;
+    width:100%;
+    text-align: center;
+    display:block;
+  }
+  >button{
+    top:0;
+    right:0;
+    position:absolute;
+  }
+
+}
+
+%modal-passed-in-content{
+  padding:2%;
+}
