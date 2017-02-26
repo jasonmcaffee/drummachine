@@ -38,6 +38,15 @@ class DrumMachine{
 				eventBus.drumMachine.configChange({machineConfig:this.machineConfig});
 			}),
 
+			eventBus.drumMachineControls.increaseNotesPerMeasure.on(()=>{
+				this.machineConfig.notesPerMeasure += 1;
+				eventBus.drumMachine.configChange({machineConfig:this.machineConfig});
+			}),
+			eventBus.drumMachineControls.decreaseNotesPerMeasure.on(()=>{
+				this.machineConfig.notesPerMeasure -= 1;
+				eventBus.drumMachine.configChange({machineConfig:this.machineConfig});
+			})
+
 		];
 	}
 

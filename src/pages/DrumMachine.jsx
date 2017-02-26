@@ -33,12 +33,12 @@ export class DrumMachine extends core.View {
 	render(){
 		console.log(`rendering DrumMachine page`);
 		let {kits} = this.props;
-		let machine = drumMachine.machineConfig;
+		let machine = drumMachinePlayer.machine;
 		let drumCellContainer =this.buildDrumcellContainer({kits, machine});
 		return (
 			<div className="drummachine-page">
 				<h1>Drum Machine</h1>
-				<DrumMachineControls isPlaying={drumMachinePlayer.isPlaying} beatsPerMinute={drumMachinePlayer.machine.beatsPerMinute}/>
+				<DrumMachineControls isPlaying={drumMachinePlayer.isPlaying} beatsPerMinute={machine.beatsPerMinute} notesPerMeasure={machine.notesPerMeasure}/>
 				<div className="drummachine ">
 					{drumCellContainer}
 				</div>
@@ -64,7 +64,7 @@ export class DrumMachine extends core.View {
 		// 	[cell, cell, cell, cell],   //measure 1
 		// 	[cell, cell, cell, cell]    //measure 2
 		// ]
-		let measures = cells.reduce((accumulator, cell, i)=>{
+		let measures = cells.slice(0, cellsPerRow).reduce((accumulator, cell, i)=>{
 			let measureIndex = Math.floor(( i/notesPerMeasure) % (cellsPerRow));
 			console.log(`measureIndex: ${measureIndex} i: ${i}  totalNumberOfMeasures:${totalNumberOfMeasures}`);
 			let measure = accumulator[measureIndex] = accumulator[measureIndex] || [];

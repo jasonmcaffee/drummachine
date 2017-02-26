@@ -42,7 +42,7 @@ export class DrumMachineControls extends core.View {
 					<label>bpm</label><input type="number" value={this.state.beatsPerMinute} min="1" max="700" onChange={(event)=>eventBus.drumMachineControls.beatsPerMinuteChanged({beatsPerMinute:event.target.value})}/>
 				</div>
 				<div> <label>columns</label> {removeColumnButton}{addColumnButton}</div>
-				<div><label>notes per measure</label>{decreaseNotesPerMeasureButton}{increaseNotesPerMeasureButton}</div>
+				<div><label>{this.props.notesPerMeasure} notes per measure</label>{decreaseNotesPerMeasureButton}{increaseNotesPerMeasureButton}</div>
       </div>
     );
   }
