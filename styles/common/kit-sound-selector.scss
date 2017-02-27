@@ -1,5 +1,7 @@
+@import 'menu-nested';
 .kits-selector { @extend %kits-selector; }
 
 %kits-selector{
+  @extend %menu-nested;
   background-color:blue;
 }

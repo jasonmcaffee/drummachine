@@ -1,0 +1,23 @@
+.menu-nested{ @extend %menu-nested; }
+
+%menu-nested{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  .menu-items { @extend %menu-items; }
+}
+
+%menu-items{
+  width:50%;
+  .menu-item{ @extend %menu-item; }
+}
+
+%menu-item{
+  width:100%;
+  &:nth-child(odd){
+    background-color: #5e5e5e;
+  }
+  &.selected{
+    background-color:yellow;
+  }
+}

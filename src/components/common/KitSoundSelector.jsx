@@ -7,7 +7,11 @@ let eventBus = core.eventBus;
 export class KitSoundSelector extends core.View {
   constructor(props){
     super(props);
-    this.state = {};
+		let kits = loadKits();
+    this.state = {
+    	selectedKit: kits[0],
+			selectedSound: undefined
+		};
   }
   componentWillMount() {}
   componentDidMount() {
@@ -19,21 +23,44 @@ export class KitSoundSelector extends core.View {
     this.offs.forEach(off=>off());
   }
 
+  handleKitSelected(selectedKit){
+		this.setState({selectedKit});
+	}
+	handleSoundSelected(sound){
+
+	}
   render() {
 		let kits = loadKits();
-		let kitSelector = this.createKitSelector();
+		let kitSelector = this.createKitSelectors();
+		let soundSelectors = this.createSoundSelectors(this.state.selectedKit);
   	return (
-      <div className="kits-selector" >
-				{kitSelector}
+      <div className="kits-selector">
+				<div className="menu-items">
+					{kitSelector}
+				</div>
+				<div className="menu-items">
+					{soundSelectors}
+				</div>
       </div>
     );
   }
 
-	createKitSelector(){
+	createKitSelectors(){
 		let kits = loadKits();
 		let kitElements = kits.map(kit=>{
-			return <div className="kit-selector">{kit.name}</div>
+			let className = this.state.selectedKit === kit ? "menu-item selected" : "menu-item";
+			return <div className={className} onClick={()=>this.handleKitSelected(kit)}>{kit.name}</div>
 		});
 		return kitElements;
 	}
+
+	createSoundSelectors(kit){
+		let sounds = kit.sounds;
+		let soundElements = sounds.map(sound=>{
+			let className = this.state.selectedSound === sound ? "menu-item selected" : "menu-item";
+			return <div className={className} onClick={()=>this.handleSoundSelected(sound)}>{sound.name}</div>
+		});
+		return soundElements;
+	}
+
 }

@@ -75,6 +75,21 @@ let kits = [
 
 
 		]
+	},
+	{
+		name:"808v2 test",
+		kitPath: "/electronic/808v1",
+
+		sounds: [
+			//misc
+			{ path: "/shaker-1.wav", name:"shaker 1", tags:["shaker"], midiTriggers:[69], qwertyTriggers:[k.comma] },
+			{ path: "/click-1.wav", name:"click 1", tags:["click"], midiTriggers:[69], qwertyTriggers:[k.period] },
+			{ path: "/click-2.wav", name:"click 2", tags:["click"], midiTriggers:[69], qwertyTriggers:[k.forwardslash] },
+			{ path: "/cowbell-1.wav", name:"cowbell 1", tags:["cowbell"], midiTriggers:[69], qwertyTriggers:[k.semicolon] },
+			{ path: "/clap-1.wav", name:"clap 1", tags:["clap"], midiTriggers:[69], qwertyTriggers:[k.dash] },
+
+
+		]
 	}
 ];
 
