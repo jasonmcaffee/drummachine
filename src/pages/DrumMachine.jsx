@@ -22,7 +22,8 @@ export class DrumMachine extends core.View {
 				//console.log(`activating cell`, cell);
 				cell.activated = activated;
 			}),
-			eventBus.drumMachine.configChange.on(()=>{
+			eventBus.drumMachine.configChange.on(({machineConfig})=>{
+				console.log(`new machine config: ${JSON.stringify(machineConfig, null, 2)}`)
 				this.forceUpdate();
 			})
 		]
@@ -58,7 +59,8 @@ export class DrumMachine extends core.View {
 
 	buildDrumCellRow({machineRow, kits, notesPerMeasure, cellsPerRow, totalNumberOfMeasures}){
 		let {kitName, soundName, cells} = machineRow;
-		let sound = kits.find(kit=>kit.name===kitName).sounds.find(sound=>sound.name===soundName);
+		let kit = kits.find(kit=>kit.name===kitName)
+		let sound = kit.sounds.find(sound=>sound.name===soundName);
 		// let drumCells = cells.map(cell=><DrumMachineCell sound={sound} cell={cell} />);
 		//group drum cells into measures (array of measures where each measure is an array of cells
 		// [
@@ -85,7 +87,7 @@ export class DrumMachine extends core.View {
 		return(
 			<div className="drumcell-row">
 				<div className="row-name">
-					<RowSoundSelector soundName={soundName}/>
+					<RowSoundSelector sound={sound} kit={kit}/>
 				</div>
 				{measureElements}
 			</div>

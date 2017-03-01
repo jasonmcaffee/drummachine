@@ -16,7 +16,7 @@ export class RowSoundSelector extends core.View {
 	componentDidMount() {
 		this.offs = [
 			eventBus.modal.close.on(()=> this.setState({modalActive:false}))
-		]
+		];
 	}
 	componentWillUnmount() {
 		this.offs.forEach(off=>off());
@@ -30,13 +30,14 @@ export class RowSoundSelector extends core.View {
 
 
 	render() {
-		let {soundName} = this.props;
+		let {sound, kit} = this.props;
 		let {modalActive} = this.state;
+		let soundName = sound.name;
 			return (
 					<div className="">
 						<div onClick={()=>this.toggleModal() }>{soundName}</div>
 						<Modal active={modalActive} title={soundName}>
-							<KitSoundSelector></KitSoundSelector>
+							<KitSoundSelector selectedSound={sound} selectedKit={kit}></KitSoundSelector>
 						</Modal>
 					</div>
 			);

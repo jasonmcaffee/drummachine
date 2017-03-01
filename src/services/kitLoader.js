@@ -77,18 +77,31 @@ let kits = [
 		]
 	},
 	{
-		name:"808v2 test",
-		kitPath: "/electronic/808v1",
+		name:"7T8",
+		kitPath: "/electronic/7T8",
 
 		sounds: [
 			//misc
-			{ path: "/shaker-1.wav", name:"shaker 1", tags:["shaker"], midiTriggers:[69], qwertyTriggers:[k.comma] },
+			{ path: "/bassdrum-1.wav", name:"bassdrum 1", tags:["bassdrum"], midiTriggers:[69], qwertyTriggers:[k.comma] },
 			{ path: "/click-1.wav", name:"click 1", tags:["click"], midiTriggers:[69], qwertyTriggers:[k.period] },
 			{ path: "/click-2.wav", name:"click 2", tags:["click"], midiTriggers:[69], qwertyTriggers:[k.forwardslash] },
-			{ path: "/cowbell-1.wav", name:"cowbell 1", tags:["cowbell"], midiTriggers:[69], qwertyTriggers:[k.semicolon] },
-			{ path: "/clap-1.wav", name:"clap 1", tags:["clap"], midiTriggers:[69], qwertyTriggers:[k.dash] },
-
-
+			{ path: "/click-3.wav", name:"click 3", tags:["click"], midiTriggers:[69], qwertyTriggers:[k.semicolon] },
+			{ path: "/hihat-closed-1.wav", name:"hihat closed 1", tags:["hihat"], midiTriggers:[69], qwertyTriggers:[k.dash] },
+			{ path: "/hihat-closed-1.wav", name:"hihat closed 2", tags:["hihat"], midiTriggers:[69], qwertyTriggers:[k.dash] },
+			{ path: "/hihat-open-1.wav", name:"hihat open 1", tags:["hihat"], midiTriggers:[69], qwertyTriggers:[k.dash] },
+			{ path: "/metal-1.wav", name:"metal 1", tags:["metal"], midiTriggers:[69], qwertyTriggers:[k.dash] },
+			{ path: "/metal-2.wav", name:"metal 2", tags:["metal"], midiTriggers:[69], qwertyTriggers:[k.dash] },
+			{ path: "/rattle-1.wav", name:"rattle 1", tags:["rattle"], midiTriggers:[69], qwertyTriggers:[k.dash] },
+			{ path: "/rattle-2.wav", name:"rattle 2", tags:["rattle"], midiTriggers:[69], qwertyTriggers:[k.dash] },
+			{ path: "/rattle-3.wav", name:"rattle 3", tags:["rattle"], midiTriggers:[69], qwertyTriggers:[k.dash] },
+			{ path: "/rattle-5.wav", name:"rattle 5", tags:["rattle"], midiTriggers:[69], qwertyTriggers:[k.dash] },
+			{ path: "/rattle-6.wav", name:"rattle 6", tags:["rattle"], midiTriggers:[69], qwertyTriggers:[k.dash] },
+			{ path: "/rattle-7.wav", name:"rattle 7", tags:["rattle"], midiTriggers:[69], qwertyTriggers:[k.dash] },
+			{ path: "/snare-1.wav", name:"snare 1", tags:["snare"], midiTriggers:[69], qwertyTriggers:[k.dash] },
+			{ path: "/tamborine-1.wav", name:"tamborine 1", tags:["tamborine"], midiTriggers:[69], qwertyTriggers:[k.dash] },
+			{ path: "/tone-1.wav", name:"tone 1", tags:["tone"], midiTriggers:[69], qwertyTriggers:[k.dash] },
+			{ path: "/tone-2.wav", name:"tone 2", tags:["tone"], midiTriggers:[69], qwertyTriggers:[k.dash] },
+			{ path: "/tone-3.wav", name:"tone 3", tags:["tone"], midiTriggers:[69], qwertyTriggers:[k.dash] },
 		]
 	}
 ];
@@ -106,6 +119,6 @@ let setKitPaths = ()=>{
 setKitPaths();
 
 export let loadKits = ()=>{
-	console.log(`loading kits: ${JSON.stringify(kits, null, 2)}`);
+	//console.log(`loading kits: ${JSON.stringify(kits, null, 2)}`);
 	return kits;
 };

@@ -3,5 +3,10 @@
 
 %kits-selector{
   @extend %menu-nested;
-  background-color:blue;
+  //background-color:blue;
+  .menu-items{
+    .menu-item{
+      color:white;
+    }
+  }
 }
