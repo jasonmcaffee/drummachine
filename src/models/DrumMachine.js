@@ -49,12 +49,10 @@ class DrumMachine{
 			}),
 
 			//when a new sound is selected, change the current machine config to reflect new sound
-			eventBus.kit.soundSelected.on(({previousSound, previousKit, kit, sound})=>{
-				//find the kit+sound in the machine config so we can replace it
-				let {rows} = this.machineConfig;
-				let rowToReplace = rows.find(({kitName, soundName})=>kitName === previousKit.name && soundName === previousSound.name);
-				rowToReplace.kitName = kit.name;
-				rowToReplace.soundName = sound.name;
+			eventBus.kit.soundSelected.on(({previousSound, previousKit, kit, sound, soundSelectedContext})=>{
+				//update the machineRow config entry that is passed as soundSelectedContext
+				soundSelectedContext.kitName = kit.name;
+				soundSelectedContext.soundName = sound.name;
 				eventBus.drumMachine.configChange({machineConfig:this.machineConfig});
 			})
 

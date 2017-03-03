@@ -33,9 +33,10 @@ export class KitSoundSelector extends core.View {
     this.handleSoundSelected(selectedKit.sounds[0], selectedKit);
 	}
 	handleSoundSelected(selectedSound, selectedKit){
+    let {soundSelectedContext} = this.props; //should be the machineRow
     //send new sound and kit so uis can update their representative elements.
     eventBus.kit.soundSelected({sound:selectedSound, kit:selectedKit,
-      previousSound:this.state.selectedSound, previousKit:this.state.selectedKit});
+      previousSound:this.state.selectedSound, previousKit:this.state.selectedKit, soundSelectedContext});
     this.setState({selectedSound, selectedKit});
 	}
   render() {

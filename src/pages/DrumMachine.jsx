@@ -23,7 +23,7 @@ export class DrumMachine extends core.View {
 				cell.activated = activated;
 			}),
 			eventBus.drumMachine.configChange.on(({machineConfig})=>{
-				console.log(`new machine config: ${JSON.stringify(machineConfig, null, 2)}`)
+				//console.log(`new machine config: ${JSON.stringify(machineConfig, null, 2)}`)
 				this.forceUpdate();
 			})
 		]
@@ -49,7 +49,7 @@ export class DrumMachine extends core.View {
 	}
 
 	buildDrumcellContainer({kits, machine}){
-		console.log(`buildDrumcellContainer called. cellsPerRow: ${machine.cellsPerRow}`);
+		//console.log(`buildDrumcellContainer called. cellsPerRow: ${machine.cellsPerRow}`);
 		let {cellsPerRow, notesPerMeasure, totalNumberOfMeasures} = machine;
 		let cellRows = machine.rows.map(machineRow=>this.buildDrumCellRow({machineRow, cellsPerRow, kits, notesPerMeasure, totalNumberOfMeasures}));
 		return(
@@ -69,7 +69,7 @@ export class DrumMachine extends core.View {
 		// ]
 		let measures = cells.slice(0, cellsPerRow).reduce((accumulator, cell, i)=>{
 			let measureIndex = Math.floor(( i/notesPerMeasure) % (cellsPerRow));
-			console.log(`measureIndex: ${measureIndex} i: ${i}  totalNumberOfMeasures:${totalNumberOfMeasures}`);
+			//console.log(`measureIndex: ${measureIndex} i: ${i}  totalNumberOfMeasures:${totalNumberOfMeasures}`);
 			let measure = accumulator[measureIndex] = accumulator[measureIndex] || [];
 			measure.push(cell);
 			return accumulator;
@@ -87,7 +87,7 @@ export class DrumMachine extends core.View {
 		return(
 			<div className="drumcell-row">
 				<div className="row-name">
-					<RowSoundSelector sound={sound} kit={kit}/>
+					<RowSoundSelector sound={sound} kit={kit} soundSelectedContext={machineRow}/>
 				</div>
 				{measureElements}
 			</div>
