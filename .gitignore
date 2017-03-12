@@ -34,3 +34,5 @@ server/node_modules
 .idea
 
 server/public/kits
+
+.DS_Store
