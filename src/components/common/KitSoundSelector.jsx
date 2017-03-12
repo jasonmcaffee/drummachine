@@ -4,13 +4,18 @@ import {loadKits} from '../../services/kitLoader';
 
 let eventBus = core.eventBus;
 
+/**
+* Formats the kit configs found in kitLoader into a nested selection menu,
+* where the kit is selected, and all sounds in the kit are displayed and can be
+* chosen so a new sound can be played, added to a drummachine, etc.
+*/
 export class KitSoundSelector extends core.View {
   constructor(props){
     super(props);
 		let kits = loadKits();
     this.state = {
-    	selectedKit: kits[0],
-			selectedSound: undefined
+    	selectedKit: props.selectedKit || kits[0],
+			selectedSound: props.selectedSound || kits[0].sounds[0]
 		};
   }
   componentWillMount() {}
@@ -24,10 +29,15 @@ export class KitSoundSelector extends core.View {
   }
 
   handleKitSelected(selectedKit){
-		this.setState({selectedKit});
+    //change the selected sound to the first one in the kit, since previous sound doesn't apply
+    this.handleSoundSelected(selectedKit.sounds[0], selectedKit);
 	}
-	handleSoundSelected(sound){
-
+	handleSoundSelected(selectedSound, selectedKit){
+    let {soundSelectedContext} = this.props; //should be the machineRow
+    //send new sound and kit so uis can update their representative elements.
+    eventBus.kit.soundSelected({sound:selectedSound, kit:selectedKit,
+      previousSound:this.state.selectedSound, previousKit:this.state.selectedKit, soundSelectedContext});
+    this.setState({selectedSound, selectedKit});
 	}
   render() {
 		let kits = loadKits();
@@ -58,7 +68,7 @@ export class KitSoundSelector extends core.View {
 		let sounds = kit.sounds;
 		let soundElements = sounds.map(sound=>{
 			let className = this.state.selectedSound === sound ? "menu-item selected" : "menu-item";
-			return <div className={className} onClick={()=>this.handleSoundSelected(sound)}>{sound.name}</div>
+			return <div className={className} onClick={()=>this.handleSoundSelected(sound, kit)}>{sound.name}</div>
 		});
 		return soundElements;
 	}

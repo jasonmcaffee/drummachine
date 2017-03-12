@@ -14,10 +14,15 @@
 
 %menu-item{
   width:100%;
+  padding: 2%;
+  border-radius: 3px;
+  cursor: pointer;
+
   &:nth-child(odd){
     background-color: #5e5e5e;
   }
+
   &.selected{
-    background-color:yellow;
+    background-color: rgba(0, 159, 255, 0.3);
   }
 }

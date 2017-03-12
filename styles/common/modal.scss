@@ -42,13 +42,24 @@
   width:90%;
   height:80%;
   margin: 5%;
-  overflow: scroll;
+  overflow-y: scroll;
   border-radius: 3px;
   //filter:blur(0);
   position:relative;
   z-index:12;
 
   >header{ @extend %modal-header; }
+
+  .close-button{
+    margin-right: 10px;
+    margin-top: 10px;
+    position:absolute;
+    background:none;
+    color: white;
+    font-size:25px;
+    border:none;
+    cursor: pointer;
+  }
 
   .modal-passed-in-content{ @extend %modal-passed-in-content; }
 
