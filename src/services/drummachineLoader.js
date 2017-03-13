@@ -8,17 +8,17 @@ let machineConfigs = [
 		beatsPerMinute: 60,
 		get totalNumberOfMeasures(){ return this.cellsPerRow / this.notesPerMeasure },
 		rows: [ //cells are for cell state, effects, etc
-			{ kitName: "808v1", soundName:"bass drum 1", cells:[] },
-			{ kitName: "808v1", soundName:"snare 1", cells:[] },
+			{ kitName: "808v1", soundName:"bass drum 1", cells:[], volume:100 },
+			{ kitName: "808v1", soundName:"snare 1", cells:[], volume:100 },
 			//kitPath: "/electronic/808v1",
-			{ kitName: "808v1", soundName:"hihat closed 1", cells:[] },
-			{ kitName: "808v1", soundName:"tom low 1", cells:[] },
-			{ kitName: "808v1", soundName:"tom mid 1", cells:[] },
-			{ kitName: "808v1", soundName:"tom high 1", cells:[] },
-			{ kitName: "808v1", soundName:"click 1", cells:[] },
-			{ kitName: "808v1", soundName:"clap 1", cells:[] },
-			{ kitName: "808v1", soundName:"cowbell 1", cells:[] },
-			{ kitName: "808v1", soundName:"ride 1", cells:[] },
+			{ kitName: "808v1", soundName:"hihat closed 1", cells:[], volume:100 },
+			{ kitName: "808v1", soundName:"tom low 1", cells:[], volume:100 },
+			{ kitName: "808v1", soundName:"tom mid 1", cells:[], volume:100 },
+			{ kitName: "808v1", soundName:"tom high 1", cells:[], volume:100 },
+			{ kitName: "808v1", soundName:"click 1", cells:[], volume:100 },
+			{ kitName: "808v1", soundName:"clap 1", cells:[], volume:100 },
+			{ kitName: "808v1", soundName:"cowbell 1", cells:[], volume:100 },
+			{ kitName: "808v1", soundName:"ride 1", cells:[], volume:90 },
 		]
 	}
 ];

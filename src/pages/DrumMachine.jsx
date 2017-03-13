@@ -1,6 +1,7 @@
 import {core} from '../core/core';
 import React from 'react';
 import {DrumMachineCell} from '../components/drummachine/DrumMachineCell';
+import {Knob} from '../components/common/Knob';
 import {drumMachinePlayer} from '../services/drummachinePlayer';
 import {DrumMachineControls} from '../components/drummachine/DrumMachineControls';
 import {RowSoundSelector} from '../components/drummachine/RowSoundSelector';
@@ -88,6 +89,7 @@ export class DrumMachine extends core.View {
 			<div className="drumcell-row">
 				<div className="row-name">
 					<RowSoundSelector sound={sound} kit={kit} soundSelectedContext={machineRow}/>
+					<Knob value="100" min="0" max="100"></Knob>
 				</div>
 				{measureElements}
 			</div>

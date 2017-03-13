@@ -27,11 +27,11 @@ export let kitPlayer = {
 		});
 
 		//play sound listener
-		eventBus.kitPlayer.playSound.on(async ({sound, kitName, soundName})=>{
+		eventBus.kitPlayer.playSound.on(async ({sound, kitName, soundName, volume=100})=>{
 			if(!sound && (!kitName || !soundName)){return console.error(`incorrect args passed to eventBus.kitPlayer.playSound`);}
 			sound = sound ? sound : kits.find(kit=>kit.name===kitName).sounds.find(sound=>sound.name===soundName);
 			//console.log(`playing sound with path: ${sound.path}`);
-			await playFile({filePath:sound.path});
+			await playFile({filePath:sound.path, volume});
 		});
 
 	},
@@ -44,15 +44,20 @@ async function fetchFilesInKit({kit}){
 	for(let sound of kit.sounds){
 		let {path} = sound;
 		//console.log(`preloading: ${path}`);
-		if(!cachedDecodedAudioData[path]){
-			let response = await fetch(path);
-			let arrayBuffer = await response.arrayBuffer();
-			let decodedAudioData = await audioContext.decodeAudioData(arrayBuffer);
-			cachedDecodedAudioData[path] = decodedAudioData;
-		}
+		fetchFile({path});
 	}
 }
-async function playFile({filePath}){
+
+async function fetchFile({path}){
+	if(!cachedDecodedAudioData[path]){
+		let response = await fetch(path);
+		let arrayBuffer = await response.arrayBuffer();
+		let decodedAudioData = await audioContext.decodeAudioData(arrayBuffer);
+		cachedDecodedAudioData[path] = decodedAudioData;
+	}
+}
+
+async function playFile({filePath, volume}){
 	if(!cachedDecodedAudioData[filePath]){
 		let response = await fetch(filePath);
 		let arrayBuffer = await response.arrayBuffer();

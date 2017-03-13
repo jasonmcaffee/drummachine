@@ -34,7 +34,7 @@ export class RowSoundSelector extends core.View {
 		let {modalActive} = this.state;
 		let soundName = sound.name;
 			return (
-					<div className="">
+					<div className="row-sound-label">
 						<div onClick={()=>this.toggleModal() }>{soundName}</div>
 						<Modal active={modalActive} title={soundName}>
 							<KitSoundSelector selectedSound={sound} selectedKit={kit} soundSelectedContext={soundSelectedContext}></KitSoundSelector>

@@ -105,11 +105,24 @@
   .row-name{
     padding: 2%;
     //margin: 1%;
-    width: 15%;
-    //max-width:130px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    width: 20%;
+    >div{
+      display:inline-block;
+    }
+    .row-sound-label{
+      //max-width:130px;
+      vertical-align: top;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      //width:50%;
+      width:125px;
+    }
+    .knob{
+      width:75px;
+      height:75px;
+    }
+
   }
   .measure{ @extend %measure; }
 }
